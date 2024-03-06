@@ -1,12 +1,11 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+  
+    background-color: #8d5d5d;
 }
 
 header {
-    background-color: #333;
+    background-color: #292929;
     color: #fff;
     padding: 10px;
     text-align: center;
@@ -27,12 +26,12 @@ nav a {
     font-weight: bold;
 }
 
-main {
+/* main {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
-}
+} */
 
 article {
     margin-bottom: 40px;
@@ -44,3 +43,32 @@ footer {
     background-color: #333;
     color: #fff;
 }
+
+.contenedor {
+    display: flex;
+}
+
+.imagen-con-texto {
+position: relative;
+margin-right: 10px;
+}
+
+#imagen1 {
+    width: 650px;
+    height: 366px;
+  }
+
+  #imagen2 {
+    width: 550px;
+    height: auto; 
+  }
+.texto-encima {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+color: white;
+font-size: 18px;
+font-weight: bold;
+}
+
