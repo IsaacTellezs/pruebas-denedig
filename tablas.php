@@ -5,7 +5,7 @@ $password = "tu_contraseña";
 $dbname = "nombre_de_tu_base_de_datos";
 
 //Crear conexion
-$conn = mysqli($servername, $username, $password, $dbname)
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 //verificar conexcion
 if ($conn->connect_error) {
@@ -61,7 +61,7 @@ $sql_comentarios = "CREATE TABLE comentarios (
     usuarios(id)
     )";
 
-if ($conn->query($sql_usuarios) === TRUE)
+if ($conn->query($sql_comentarios) === TRUE)
 {
     echo "Tabla 'comentarios' creada
     exitosamente<br>";
@@ -71,4 +71,4 @@ if ($conn->query($sql_usuarios) === TRUE)
 } 
 
 $conn->close();
-?>
+
