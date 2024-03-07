@@ -61,7 +61,7 @@ $sql_comentarios = "CREATE TABLE comentarios (
     usuarios(id)
     )";
 
-if ($conn->query($sql_usuarios) === TRUE)
+if ($conn->query($sql_comentarios) === TRUE)
 {
     echo "Tabla 'comentarios' creada
     exitosamente<br>";
