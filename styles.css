@@ -11,6 +11,14 @@ header {
     text-align: center;
 }
 
+.botonb {
+    background-color: #8d5d5d;
+color: aqua;
+    padding: 10px;
+    text-align: center;
+}
+
+
 nav ul {
     list-style: none;
 }
@@ -20,10 +28,21 @@ nav ul li {
     margin-right: 20px;
 }
 
-nav a {
+.nav1 a {
     text-decoration: none;
-    color: #fff;
+    color: #ffffff;
     font-weight: bold;
+}
+
+.nav2 a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: rgb(255, 255, 255);
+    padding: 15px 22px;
+    border: 2px solid;
+    border-radius: 50px;
 }
 
 /* main {
@@ -50,25 +69,45 @@ footer {
 
 .imagen-con-texto {
 position: relative;
-margin-right: 10px;
+margin-right: 2%;
+width: 100%;
 }
 
 #imagen1 {
-    width: 650px;
-    height: 366px;
-  }
+    max-width: 100%;
+    height: 100%;
+    
+      } 
 
   #imagen2 {
-    width: 550px;
+    max-width: 100%;
     height: auto; 
   }
+
+.boton-superpuesto {
+position: absolute;
+
+top: 10%;
+left: 10%;
+transform: translate(-50%, -50%);
+padding: 3%;
+background-color: rgb(0, 0, 0);
+text-decoration: none;
+color: rgb(255, 255, 255);
+font-weight: bold;
+border: none;
+cursor: pointer;
+}
+
+
+
 .texto-encima {
 position: absolute;
-top: 50%;
-left: 50%;
+top: 30%;
+left: 20%;
 transform: translate(-50%, -50%);
-color: white;
-font-size: 18px;
+color: rgb(0, 0, 0);
+font-size: 20px;
 font-weight: bold;
 }
 
