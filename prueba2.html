@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contenedor Deslizable</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    #contenedor-deslizable {
+      position: fixed;
+      top: 0;
+      right: -25%; /* Cambiado a la derecha */
+      width: 25%;
+      height: 100%;
+      background-color: #f0f0f0;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
+
+    #contenedor-deslizable a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 20px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    #contenedor-deslizable a:hover {
+      color: #f1f1f1;
+    }
+
+    #boton-abrir {
+      font-size: 30px;
+      cursor: pointer;
+      position: fixed;
+      right: 0; /* Cambiado a la derecha */
+      top: 20px;
+      padding-right: 20px; /* Cambiado a la derecha */
+      z-index: 1;
+    }
+
+    #contenido-pagina {
+      transition: margin-right .5s; /* Cambiado a la derecha */
+      padding: 16px;
+      margin-right: 0; /* Cambiado a la derecha */
+    }
+
+    #contenido-pagina.contenido-pagina-abierto {
+      margin-right: 25%; /* Cambiado a la derecha */
+    }
+  </style>
+</head>
+<body>
+
+<div id="contenedor-deslizable">
+  <a href="#" onclick="cerrarContenedor()">Cerrar</a>
+  <!-- Agrega más contenido aquí según tus necesidades -->
+</div>
+
+<div id="contenido-pagina">
+  <div id="boton-abrir" onclick="abrirContenedor()">&#9776; Menú</div>
+  <!-- Agrega el contenido principal de tu página aquí -->
+  <p>Contenido principal de la página.</p>
+</div>
+
+<script>
+  function abrirContenedor() {
+    document.getElementById("contenedor-deslizable").style.right = "0"; /* Cambiado a la derecha */
+    document.getElementById("contenido-pagina").classList.add("contenido-pagina-abierto");
+  }
+
+  function cerrarContenedor() {
+    document.getElementById("contenedor-deslizable").style.right = "-25%"; /* Cambiado a la derecha */
+    document.getElementById("contenido-pagina").classList.remove("contenido-pagina-abierto");
+  }
+</script>
+
+</body>
+</html>

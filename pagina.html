@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -29,14 +31,16 @@
     <main>
 <body>
 
-    <div class="contenedor">
-        <div class="imagen-con-texto">
+<!-- contenedor de imagenes 1 -->
+
+    <div class="contenedor" ondragover="allowDrop(event)" ondrop="drop(event)">
+        <div class="imagen-con-texto" draggable="true" ondragstart="dragStart(event)">
           <img id="imagen1" src="/Imagenes/fondo.webp" alt="Imagen 1">
           <a href="#" class="boton-superpuesto">boton</a>
           <div class="texto-encima">Crea tu sitio web</div>
         </div>
       
-        <div class="imagen-con-texto">
+        <div class="imagen-con-texto" draggable="true" ondragstart="dragStart(event)">
           <img id="imagen2" src="/imagenes/fondo.jpg" alt="Imagen 2">
           <div class="texto-encima">imagen 2</div>
         </div>
@@ -56,26 +60,43 @@
             </ul>
         </div>
 
+<!-- fin contenedor de imagenes 1 -->
 
 <br>
 <br>
 
-<div class="contenedor">
-    <div class="imagen-con-texto">
+<!-- contenedor de imagenes 2 -->
+
+<div class="contenedor" ondragover="allowDrop(event)" ondrop="drop(event)">
+  
+    <div class="imagen-con-texto" draggable="true" ondragstart="dragStart(event)">
       <img id="imagen1" src="/Imagenes/rosapastel.jpg" alt="Imagen 1">
       <div class="texto-encima">imagen 3</div>
     </div>
   
-    <div class="imagen-con-texto">
+    <div class="imagen-con-texto" draggable="true" ondragstart="dragStart(event)">
       <img id="imagen2" src="/imagenes/azulpastel.jpg" alt="Imagen 2">
       <div class="texto-encima">imagen 4</div>
+      </div>
 
-      <div class="imagen-con-texto">
+      <div class="imagen-con-texto" draggable="true" ondragstart="dragStart(event)">
         <img id="imagen2" src="/imagenes/verdepastel.jpg" alt="Imagen 3">
         <div class="texto-encima">imagen 5</div>
-      
+      </div>
     </div>
   </div>
+
+<!-- fin de contenedor de imagenes 2 -->
+
+
+<!-- contenedor prueba -->
+
+<div id="contenedor-deslizable" ondragover="allowDrop(event)" ondrop="drop(event)">
+  <!-- Puedes agregar contenido inicial si lo necesitas -->
+</div>
+
+
+<!-- fin contenedor prueba -->
 
 <br>
 <br>
@@ -96,13 +117,83 @@
     </article> -->
 
 
-    </main>
 
+
+    </main>
+    
+
+<!--  script prueba jquery
+    <script src="jquery-3.7.1"></script>
+<script>
+$(document).ready(function () {
+alert("hola")
+
+}) -->
+
+
+</script>
+    <br><br><br>
+    <label for="comentarios">Ingresa un comentario</label>
+    <input type="text" id="cometario" name="comentario">
 
     <footer>
         <p>&copy; 2024 </p>
     </footer>
 
+    <script>
+      function dragStart(event) {
+        event.dataTransfer.setData("text/plain", event.target.id);
+      }
+    </script>
+    
+
+    <script>
+      function allowDrop(event) {
+        event.preventDefault();
+      }
+    
+      function drop(event) {
+        event.preventDefault();
+        const data = event.dataTransfer.getData("text/plain");
+        const draggedElement = document.getElementById(data);
+        document.getElementById("contenedor-deslizable").appendChild(draggedElement);
+    }
+    </script>
+
+
+
+
+
+
+<!-- codigo del contenedor -->
+
+<div id="contenedor-deslizable">
+  <a href="#" onclick="cerrarContenedor()">Cerrar</a>
+  <!-- Agrega más contenido aquí según tus necesidades -->
+</div>
+
+<div id="contenido-pagina">
+  <div id="boton-abrir" onclick="abrirContenedor()">&#9776; Menú</div>
+  <!-- Agrega el contenido principal de tu página aquí -->
+  <p>Contenido principal de la página.</p>
+</div>
+
+<script>
+  function abrirContenedor() {
+    document.getElementById("contenedor-deslizable").style.right = "0"; /* Cambiado a la derecha */
+    document.getElementById("contenido-pagina").classList.add("contenido-pagina-abierto");
+  }
+
+  function cerrarContenedor() {
+    document.getElementById("contenedor-deslizable").style.right = "-25%"; /* Cambiado a la derecha */
+    document.getElementById("contenido-pagina").classList.remove("contenido-pagina-abierto");
+  }
+</script>
+
+
+
+
+<!-- fin del codigo del contenedor -->
 </body>
 </html>
 
