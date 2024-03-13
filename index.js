@@ -1,14 +1,40 @@
-// Función para agregar texto
-function agregarTexto(event) {
-    var texto = prompt("Ingresa el texto que deseas agregar:");
+// // Función para agregar texto
+// function agregarTexto(event)  {
+//     var texto = prompt("Ingresa el texto que deseas agregar:");
   
-    // Verifica si el usuario ingresó texto y si es distinto de null (si canceló el prompt, se devuelve null)
-    if (texto !== null && texto !== "") {
-      var espacio = document.getElementById("espacioTexto");
-      espacio.innerHTML += "<p style='position: absolute; left:" + event.clientX + "px; top:" + event.clientY + "px;'>" + texto + "</p>"; // Agrega el texto al elemento en la página en la posición del clic
-    }
+//     // Verifica si el usuario ingresó texto y si es distinto de null (si canceló el prompt, se devuelve null)
+//     if (texto !== null && texto !== "") {
+//       var espacio = document.getElementById("espacioTexto");
+//       espacio.innerHTML += "<p style='position: absolute; left:" + event.clientX + "px; top:" + event.clientY + "px;'>" + texto + "</p>";
+//     }
+//   }
+
+
+function agregarTexto(event)  {
+  var texto = prompt("Ingresa el texto que deseas agregar:");
+
+  // Verifica si el usuario ingresó texto y si es distinto de null (si canceló el prompt, se devuelve null)
+  if (texto !== null && texto !== "") {
+    var espacio = document.getElementById("espacioTexto");
+    var nuevoElemento = document.createElement("p");
+    nuevoElemento.innerHTML = texto;
+    nuevoElemento.style.position = "absolute";
+    nuevoElemento.style.left = event.clientX + "px";
+    nuevoElemento.style.top = event.clientY + "px";
+    nuevoElemento.draggable = true;
+    nuevoElemento.addEventListener("dragstart", function(e) {
+      e.dataTransfer.setData("text/plain", null); // Esto es necesario para habilitar el arrastre en algunos navegadores
+    });
+    nuevoElemento.addEventListener("drag", function(e) {
+      nuevoElemento.style.left = e.clientX + "px";
+      nuevoElemento.style.top = e.clientY + "px";
+    });
+    espacio.appendChild(nuevoElemento);
   }
+}
+
   
+
   // Función para mover el botón
   function drag(event) {
     event.dataTransfer.setData("text", event.target.id);
@@ -27,7 +53,7 @@ function agregarTexto(event) {
   });
   
   // Evento para agregar texto cuando se hace clic en cualquier parte de la página
-  document.addEventListener("click", function(event) {
+  document.addEventListener("dblclick", function(event) {
     if (event.target.tagName !== 'BUTTON') {
       agregarTexto(event);
     }

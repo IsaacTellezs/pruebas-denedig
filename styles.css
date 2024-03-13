@@ -182,5 +182,17 @@ body {
     margin-right: 25%;
   }
 
+/* crear botones */
+  #agregarTextoBtn {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    cursor: move;
+  }
 
-  
+  /* Estilo para resaltar el texto al pasar el mouse sobre él */
+  p:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  /* fin botones */
