@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -29,19 +27,18 @@
 
  
     <main>
-<body>
 
 <!-- contenedor de imagenes 1 -->
 
     <div class="contenedor" ondragover="allowDrop(event)" ondrop="drop(event)">
         <div class="imagen-con-texto" draggable="true" ondragstart="dragStart(event)">
-          <img id="imagen1" src="/Imagenes/fondo.webp" alt="Imagen 1">
+          <img id="imagen1" src="/Imagenes/fondo.webp" alt="Imagen 1" onclick="cambiarImagen(this)">
           <a href="#" class="boton-superpuesto">boton</a>
           <div class="texto-encima">Crea tu sitio web</div>
         </div>
       
         <div class="imagen-con-texto" draggable="true" ondragstart="dragStart(event)">
-          <img id="imagen2" src="/imagenes/fondo.jpg" alt="Imagen 2">
+          <img id="imagen2" src="/imagenes/fondo.jpg" alt="Imagen 2" onclick="cambiarImagen(this)">
           <div class="texto-encima">imagen 2</div>
         </div>
       </div>
@@ -70,33 +67,23 @@
 <div class="contenedor" ondragover="allowDrop(event)" ondrop="drop(event)">
   
     <div class="imagen-con-texto" draggable="true" ondragstart="dragStart(event)">
-      <img id="imagen1" src="/Imagenes/rosapastel.jpg" alt="Imagen 1">
+      <img id="imagen3" src="/Imagenes/rosapastel.jpg" alt="Imagen 1" onclick="cambiarImagen(this)">
       <div class="texto-encima">imagen 3</div>
     </div>
   
     <div class="imagen-con-texto" draggable="true" ondragstart="dragStart(event)">
-      <img id="imagen2" src="/imagenes/azulpastel.jpg" alt="Imagen 2">
+      <img id="imagen4" src="/imagenes/azulpastel.jpg" alt="Imagen 2" onclick="cambiarImagen(this)">
       <div class="texto-encima">imagen 4</div>
       </div>
 
       <div class="imagen-con-texto" draggable="true" ondragstart="dragStart(event)">
-        <img id="imagen2" src="/imagenes/verdepastel.jpg" alt="Imagen 3">
+        <img id="imagen5" src="/imagenes/verdepastel.jpg" alt="Imagen 3" onclick="cambiarImagen(this)">
         <div class="texto-encima">imagen 5</div>
       </div>
     </div>
   </div>
 
 <!-- fin de contenedor de imagenes 2 -->
-
-
-<!-- contenedor prueba -->
-
-<div id="contenedor-deslizable" ondragover="allowDrop(event)" ondrop="drop(event)">
-  <!-- Puedes agregar contenido inicial si lo necesitas -->
-</div>
-
-
-<!-- fin contenedor prueba -->
 
 <br>
 <br>
@@ -160,32 +147,55 @@ alert("hola")
     }
     </script>
 
+<script>
+function cambiarImagen(imagen) {
+  const input = document.createElement('input');
+  input.type = 'file';
+
+  input.onchange = function(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function() {
+      imagen.src = reader.result;
+    }
+    reader.readAsDataURL(file);
+  }
+  input.click();
+}
+</script>
+
+<!-- contenedor prueba -->
+
+<!-- <div id="contenedor-deslizable" ondragover="allowDrop(event)" ondrop="drop(event)">
+ 
+</div> -->
 
 
+<!-- fin contenedor prueba -->
 
 
 
 <!-- codigo del contenedor -->
 
-<div id="contenedor-deslizable">
+<div id="contenedor-deslizable" ondragover="allowDrop(event)" ondrop="drop(event)">
   <a href="#" onclick="cerrarContenedor()">Cerrar</a>
-  <!-- Agrega más contenido aquí según tus necesidades -->
+
 </div>
 
 <div id="contenido-pagina">
   <div id="boton-abrir" onclick="abrirContenedor()">&#9776; Menú</div>
-  <!-- Agrega el contenido principal de tu página aquí -->
+
   <p>Contenido principal de la página.</p>
 </div>
 
 <script>
   function abrirContenedor() {
-    document.getElementById("contenedor-deslizable").style.right = "0"; /* Cambiado a la derecha */
+    document.getElementById("contenedor-deslizable").style.right = "0"; 
     document.getElementById("contenido-pagina").classList.add("contenido-pagina-abierto");
   }
 
   function cerrarContenedor() {
-    document.getElementById("contenedor-deslizable").style.right = "-25%"; /* Cambiado a la derecha */
+    document.getElementById("contenedor-deslizable").style.right = "-25%"; 
     document.getElementById("contenido-pagina").classList.remove("contenido-pagina-abierto");
   }
 </script>
@@ -196,5 +206,3 @@ alert("hola")
 <!-- fin del codigo del contenedor -->
 </body>
 </html>
-
-
