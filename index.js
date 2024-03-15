@@ -11,12 +11,12 @@
 
 
 
-  function agregarTexto(event) {
-    var texto = prompt("Ingresa el texto que deseas agregar:");
-    var tamano = prompt("Ingresa el tamaño del texto:");
-  
-    // Verifica si el usuario ingresó texto y tamaño, y si no canceló el prompt
-    if (texto !== null && texto !== "" && tamano !== null && tamano !== "") {
+function agregarTexto(event) {
+  var texto = prompt("Ingresa el texto que deseas agregar:");
+  var tamano = prompt("Ingresa el tamaño del texto:");
+
+  // Verifica si el usuario ingresó texto y tamaño, y si no canceló el prompt
+  if (texto !== null && texto !== "" && tamano !== null && tamano !== "") {
       var espacio = document.getElementById("espacioTexto");
       var nuevoElemento = document.createElement("p");
       nuevoElemento.innerHTML = texto;
@@ -25,16 +25,19 @@
       nuevoElemento.style.top = event.clientY + "px";
       nuevoElemento.draggable = true;
       nuevoElemento.style.fontSize = tamano + "px"; // Establece el tamaño del texto
-      nuevoElemento.addEventListener("dragstart", function(e) {
-        e.dataTransfer.setData("text/plain", null); // Esto es necesario para habilitar el arrastre en algunos navegadores
+      nuevoElemento.addEventListener("dragstart", function (e) {
+          e.dataTransfer.setData("text/plain", null); // Esto es necesario para habilitar el arrastre en algunos navegadores
+          offsetX = e.clientX - nuevoElemento.getBoundingClientRect().left;
+          offsetY = e.clientY - nuevoElemento.getBoundingClientRect().top;
       });
-      nuevoElemento.addEventListener("drag", function(e) {
-        nuevoElemento.style.left = e.clientX + "px";
-        nuevoElemento.style.top = e.clientY + "px";
+      nuevoElemento.addEventListener("drag", function (e) {
+          nuevoElemento.style.left = e.clientX - offsetX + "px";
+          nuevoElemento.style.top = e.clientY - offsetY + "px";
       });
       espacio.appendChild(nuevoElemento);
-    }
   }
+}
+
   
 
   // Función para mover el botón
