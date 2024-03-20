@@ -64,9 +64,30 @@ function agregarTexto(event) {
     }
   });
   
-  // Evento para eliminar texto al seleccionarlo con el mouse
+  // Evento para cambiar el tipo de letra o eliminar texto al hacer clic sobre el texto
   document.addEventListener("click", function(event) {
     if (event.target.tagName === 'P') {
-      event.target.remove(); // Elimina el texto al hacer clic en él
-    }
-  });
+  // Crear el menú desplegable para cambiar el tipo de letra
+      var tipoLetraMenu = document.createElement("select");
+      var opcionesTipoLetra = ["Arial", "Helvetica", "Times New Roman", "Courier New", "Verdana", "Georgia", "Palatino", "Garamond", "Bookman", "Comic Sans MS", "Trebuchet MS", "Arial Black", "Impact"];
+      
+      for (var i = 0; i < opcionesTipoLetra.length; i++) {
+          var opcion = document.createElement("option");
+          opcion.text = opcionesTipoLetra[i];
+          tipoLetraMenu.add(opcion);
+      }
+      
+      tipoLetraMenu.addEventListener("change", function() {
+          event.target.style.fontFamily = this.value;
+          this.remove(); // Elimina el menú desplegable después de seleccionar una opción
+      });
+      
+  // Agregar las opciones al texto seleccionado
+  event.target.appendChild(tipoLetraMenu);
+  event.target.appendChild(eliminarTextoOpcion);
+  tipoLetraMenu.focus(); // Enfocar el menú desplegable para que el usuario pueda hacer clic en una opción sin necesidad de hacer clic nuevamente en el texto
+
+}
+}); 
+
+ 
