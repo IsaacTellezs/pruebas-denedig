@@ -82,7 +82,18 @@ function agregarTexto(event) {
           this.remove(); // Elimina el menú desplegable después de seleccionar una opción
       });
       
-  // Agregar las opciones al texto seleccionado
+  
+
+    // Crear la opción para eliminar el texto
+    var eliminarTextoOpcion = document.createElement("button");
+    eliminarTextoOpcion.textContent = "Eliminar texto";
+    eliminarTextoOpcion.style.marginLeft = "10px"; // Espaciado para separar las dos opciones
+    
+    eliminarTextoOpcion.addEventListener("click", function() {
+        event.target.remove(); // Eliminar el texto
+    });
+
+    // Agregar las opciones al texto seleccionado
   event.target.appendChild(tipoLetraMenu);
   event.target.appendChild(eliminarTextoOpcion);
   tipoLetraMenu.focus(); // Enfocar el menú desplegable para que el usuario pueda hacer clic en una opción sin necesidad de hacer clic nuevamente en el texto
