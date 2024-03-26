@@ -1,208 +1,83 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <link rel="stylesheet" href="styles.css">
-
-    <meta content="" name="description">
-    <meta content= "" name="keywords">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contenedores de imágenes móviles</title>
+<style>
+    .container {
+        position: absolute;
+        background-color: lightblue;
+        cursor: pointer;
+    }
+</style>
 </head>
 <body>
 
-    <header>
-        <h1></h1>
-
-        <nav class="nav1">
-             <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Precios</a></li>
-                <li><a href="#">Acerca de</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
-
- 
-    <main>
-
-<!-- contenedor de imagenes 1 -->
-
-    <div class="contenedor" ondragover="allowDrop(event)" ondrop="drop(event)">
-        <div class="imagen-con-texto" draggable="true" ondragstart="dragStart(event)">
-          <img id="imagen1" src="/Imagenes/fondo.webp" alt="Imagen 1" onclick="cambiarImagen(this)">
-          <a href="#" class="boton-superpuesto">boton</a>
-          <div class="texto-encima">Crea tu sitio web</div>
-        </div>
-      
-        <div class="imagen-con-texto" draggable="true" ondragstart="dragStart(event)">
-          <img id="imagen2" src="/imagenes/fondo.jpg" alt="Imagen 2" onclick="cambiarImagen(this)">
-          <div class="texto-encima">imagen 2</div>
-        </div>
-      </div>
-
-
-      <h1 style="text-align: center;">¿Cuál es la prioridad para tu negocio?</h1>
-
-
-<div class="botonb">
-        <nav class="nav2">
-             <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Precios</a></li>
-                <li><a href="#">Acerca de</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
-        </div>
-
-<!-- fin contenedor de imagenes 1 -->
-
-<br>
-<br>
-
-<!-- contenedor de imagenes 2 -->
-
-<div class="contenedor" ondragover="allowDrop(event)" ondrop="drop(event)">
-  
-    <div class="imagen-con-texto" draggable="true" ondragstart="dragStart(event)">
-      <img id="imagen3" src="/Imagenes/rosapastel.jpg" alt="Imagen 1" onclick="cambiarImagen(this)">
-      <div class="texto-encima">imagen 3</div>
-    </div>
-  
-    <div class="imagen-con-texto" draggable="true" ondragstart="dragStart(event)">
-      <img id="imagen4" src="/imagenes/azulpastel.jpg" alt="Imagen 2" onclick="cambiarImagen(this)">
-      <div class="texto-encima">imagen 4</div>
-      </div>
-
-      <div class="imagen-con-texto" draggable="true" ondragstart="dragStart(event)">
-        <img id="imagen5" src="/imagenes/verdepastel.jpg" alt="Imagen 3" onclick="cambiarImagen(this)">
-        <div class="texto-encima">imagen 5</div>
-      </div>
-    </div>
-  </div>
-
-<!-- fin de contenedor de imagenes 2 -->
-
-<br>
-<br>
-    <!-- <article>
-        <h2></h2>
-        <h3></h3>
-        <h4></h4>
-    </article>
-
-    <article>
-        <h2></h2>
-        <h3></h3>
-        <h4></h4>
-            <h4></h4>
-            
-            <h4></h4>
-               <h4></h4>
-    </article> -->
-
-
-
-
-    </main>
-    
-
-<!--  script prueba jquery
-    <script src="jquery-3.7.1"></script>
-<script>
-$(document).ready(function () {
-alert("hola")
-
-}) -->
-
-
-</script>
-    <br><br><br>
-    <label for="comentarios">Ingresa un comentario</label>
-    <input type="text" id="cometario" name="comentario">
-
-    <footer>
-        <p>&copy; 2024 </p>
-    </footer>
-
-    <script>
-      function dragStart(event) {
-        event.dataTransfer.setData("text/plain", event.target.id);
-      }
-    </script>
-    
-
-    <script>
-      function allowDrop(event) {
-        event.preventDefault();
-      }
-    
-      function drop(event) {
-        event.preventDefault();
-        const data = event.dataTransfer.getData("text/plain");
-        const draggedElement = document.getElementById(data);
-        document.getElementById("contenedor-deslizable").appendChild(draggedElement);
-    }
-    </script>
-
-<script>
-function cambiarImagen(imagen) {
-  const input = document.createElement('input');
-  input.type = 'file';
-
-  input.onchange = function(e) {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = function() {
-      imagen.src = reader.result;
-    }
-    reader.readAsDataURL(file);
-  }
-  input.click();
-}
-</script>
-
-<!-- contenedor prueba -->
-
-<!-- <div id="contenedor-deslizable" ondragover="allowDrop(event)" ondrop="drop(event)">
- 
-</div> -->
-
-
-<!-- fin contenedor prueba -->
-
-
-
-<!-- codigo del contenedor -->
-
-<div id="contenedor-deslizable" ondragover="allowDrop(event)" ondrop="drop(event)">
-  <a href="#" onclick="cerrarContenedor()">Cerrar</a>
-
+<div class="container" id="container1" style="top: 50px; left: 50px;">
+    <img src="/imagenes/pasto.jpeg" alt="Imagen 1">
 </div>
-
-<div id="contenido-pagina">
-  <div id="boton-abrir" onclick="abrirContenedor()">&#9776; Menú</div>
-
-  <p>Contenido principal de la página.</p>
+<div class="container" id="container2" style="top: 50px; left: 200px;">
+    <img src="/imagenes/pasto.jpeg" alt="Imagen 2">
+</div>
+<div class="container" id="container3" style="top: 50px; left: 350px;">
+    <img src="imagen3.jpg" alt="Imagen 3">
 </div>
 
 <script>
-  function abrirContenedor() {
-    document.getElementById("contenedor-deslizable").style.right = "0"; 
-    document.getElementById("contenido-pagina").classList.add("contenido-pagina-abierto");
-  }
+    const containers = document.querySelectorAll('.container');
 
-  function cerrarContenedor() {
-    document.getElementById("contenedor-deslizable").style.right = "-25%"; 
-    document.getElementById("contenido-pagina").classList.remove("contenido-pagina-abierto");
-  }
+    containers.forEach(container => {
+        const img = container.querySelector('img');
+        img.onload = function() {
+            container.style.width = img.width + 'px';
+            container.style.height = img.height + 'px';
+        };
+
+        container.addEventListener('mousedown', function(event) {
+            let offsetX = event.clientX - container.getBoundingClientRect().left;
+            let offsetY = event.clientY - container.getBoundingClientRect().top;
+
+            function moveContainer(event) {
+                let newX = event.clientX - offsetX;
+                let newY = event.clientY - offsetY;
+
+                // Verificar si la nueva posición está dentro de otro contenedor
+                let overlapping = false;
+                containers.forEach(otherContainer => {
+                    if (otherContainer !== container && isOverlapping(container, otherContainer, newX, newY)) {
+                        overlapping = true;
+                    }
+                });
+
+                // Si no se superpone con otros contenedores, mover
+                if (!overlapping) {
+                    container.style.left = newX + 'px';
+                    container.style.top = newY + 'px';
+                }
+            }
+
+            function isOverlapping(element1, element2, x, y) {
+                const rect1 = element1.getBoundingClientRect();
+                const rect2 = element2.getBoundingClientRect();
+                return (
+                    x < rect2.right &&
+                    x + rect1.width > rect2.left &&
+                    y < rect2.bottom &&
+                    y + rect1.height > rect2.top
+                );
+            }
+
+            function stopMoving() {
+                window.removeEventListener('mousemove', moveContainer);
+                window.removeEventListener('mouseup', stopMoving);
+            }
+
+            window.addEventListener('mousemove', moveContainer);
+            window.addEventListener('mouseup', stopMoving);
+        });
+    });
 </script>
 
-
-
-
-<!-- fin del codigo del contenedor -->
 </body>
 </html>
