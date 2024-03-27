@@ -77,6 +77,47 @@
             window.addEventListener('mouseup', stopMoving);
         });
     });
+
+
+    function drag(event) {
+    if (isDragging) {
+        const newPosX = event.clientX - offsetX;
+        const newPosY = event.clientY - offsetY;
+
+        // Verificar si la nueva posición del contenedor se superpone con otros contenedores existentes
+        const draggedRect = {
+            left: newPosX,
+            top: newPosY,
+            right: newPosX + container.offsetWidth,
+            bottom: newPosY + container.offsetHeight
+        };
+
+        let canMove = true;
+
+        // Iterar sobre todos los contenedores existentes
+        document.querySelectorAll('.imagen-container').forEach(function(existingContainer) {
+            if (existingContainer !== container) { // Excluir el contenedor que se está arrastrando
+                const existingRect = existingContainer.getBoundingClientRect();
+
+                // Verificar si hay superposición
+                if (!(draggedRect.right < existingRect.left || 
+                    draggedRect.left > existingRect.right || 
+                    draggedRect.bottom < existingRect.top || 
+                    draggedRect.top > existingRect.bottom)) {
+                    // Se superpone con otro contenedor, no puede moverse
+                    canMove = false;
+                }
+            }
+        });
+
+        // Si no se superpone con otros contenedores, mover
+        if (canMove) {
+            container.style.left = newPosX + 'px';
+            container.style.top = newPosY + 'px';
+        }
+    }
+}
+
 </script>
 
 </body>

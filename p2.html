@@ -40,7 +40,12 @@
     background-color: rgba(255, 255, 255, 0.7);
     padding: 5px;
     cursor: pointer;
+    display: none; /* oculto por defecto */
   }
+  .imagen-container:hover .actualizar-imagen {
+    display: block; /* Mostrar el botón de eliminación al pasar el ratón sobre el contenedor */
+  }
+  
   .resize-handle {
     position: absolute;
     bottom: 0;
@@ -86,17 +91,17 @@
 
 <script>
 function agregarImagen() {
-  // Creamos un nuevo contenedor de imagen
+  //nuevo contenedor de imagen
   var contenedorImagenes = document.getElementById("contenedor-imagenes");
   var nuevoContenedor = document.createElement("div");
   nuevoContenedor.classList.add("imagen-container");
 
-  // Creamos la imagen dentro del contenedor
+  //imagen dentro del contenedor
   var nuevaImagen = document.createElement("img");
   nuevaImagen.src = "ruta-a-tu-imagen.jpg"; // Cambia "ruta-a-tu-imagen.jpg" por la ruta de tu imagen
   nuevaImagen.classList.add("imagen");
 
-  // Creamos el botón de actualizar imagen
+  //botón de actualizar imagen
   var botonActualizar = document.createElement("div");
   botonActualizar.classList.add("actualizar-imagen");
   botonActualizar.textContent = "Actualizar";
@@ -115,7 +120,7 @@ function agregarImagen() {
     input.click();
   };
 
-  // Creamos el botón de eliminar contenedor
+  //botón de eliminar contenedor
   var botonEliminar = document.createElement("div");
   botonEliminar.classList.add("eliminar-contenedor");
   botonEliminar.textContent = "Eliminar";
@@ -123,7 +128,7 @@ function agregarImagen() {
     contenedorImagenes.removeChild(nuevoContenedor);
   };
 
-  // Creamos el controlador de redimensionamiento
+  //controlador de redimensionamiento
   var resizeHandle = document.createElement("div");
   resizeHandle.classList.add("resize-handle");
 
@@ -133,13 +138,13 @@ function agregarImagen() {
   nuevoContenedor.appendChild(botonEliminar);
   nuevoContenedor.appendChild(resizeHandle);
 
-  // Agregamos el nuevo contenedor al contenedor principal de imágenes
+  //Nuevo contenedor al contenedor principal de imágenes
   contenedorImagenes.appendChild(nuevoContenedor);
 
-  // Hacemos que el contenedor sea redimensionable
+  //contenedor sea redimensionable
   makeResizable(nuevoContenedor);
 
-  // Hacemos que el contenedor sea arrastrable
+  //Contenedor sea arrastrable
   makeDraggable(nuevoContenedor);
 }
 
@@ -215,8 +220,37 @@ function makeDraggable(container) {
       const newPosX = event.clientX - offsetX;
       const newPosY = event.clientY - offsetY;
 
-      container.style.left = newPosX + 'px';
-      container.style.top = newPosY + 'px';
+      // Verificar si la nueva posición del contenedor se superpone con otros contenedores existentes
+      const draggedRect = {
+        left: newPosX,
+        top: newPosY,
+        right: newPosX + container.offsetWidth,
+        bottom: newPosY + container.offsetHeight
+      };
+
+      let canMove = true;
+
+      // Iterar sobre todos los contenedores existentes
+      document.querySelectorAll('.imagen-container').forEach(function(existingContainer) {
+        if (existingContainer !== container) { // Excluir el contenedor que se está arrastrando
+          const existingRect = existingContainer.getBoundingClientRect();
+
+          // Verificar si hay superposición
+          if (!(draggedRect.right < existingRect.left || 
+              draggedRect.left > existingRect.right || 
+              draggedRect.bottom < existingRect.top || 
+              draggedRect.top > existingRect.bottom)) {
+            // Se superpone con otro contenedor, no puede moverse
+            canMove = false;
+          }
+        }
+      });
+
+      // Si no se superpone con otros contenedores, mover
+      if (canMove) {
+        container.style.left = newPosX + 'px';
+        container.style.top = newPosY + 'px';
+      }
     }
   }
 
@@ -226,8 +260,9 @@ function makeDraggable(container) {
     document.removeEventListener('mouseup', stopDragging);
   }
 }
+
+
 </script>
 
 </body>
 </html>
-  

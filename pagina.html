@@ -42,6 +42,7 @@
 
 
     <style>
+      /* Estilos CSS para la apariencia */
       body {
         margin: 0;
         padding: 0;
@@ -76,7 +77,12 @@
         background-color: rgba(255, 255, 255, 0.7);
         padding: 5px;
         cursor: pointer;
+        display: none; /* oculto por defecto */
       }
+      .imagen-container:hover .actualizar-imagen {
+        display: block; /* Mostrar el botón de eliminación al pasar el ratón sobre el contenedor */
+      }
+      
       .resize-handle {
         position: absolute;
         bottom: 0;
@@ -113,7 +119,7 @@
         cursor: pointer;
       }
     </style>
-    
+
     <!--Fin estilo  -->
     
     <button id="boton-fijo" onclick="agregarImagen()">Agregar Imagen</button>
@@ -121,149 +127,180 @@
     <div id="contenedor-imagenes"></div>
     
     <script>
-    function agregarImagen() {
-      //Nuevo contenedor de imagen
-      var contenedorImagenes = document.getElementById("contenedor-imagenes");
-      var nuevoContenedor = document.createElement("div");
-      nuevoContenedor.classList.add("imagen-container");
-    
-      //La imagen dentro del contenedor
-      var nuevaImagen = document.createElement("img");
-      nuevaImagen.src = "ruta-a-tu-imagen.jpg"; //"ruta-a-tu-imagen.jpg"
-      nuevaImagen.classList.add("imagen");
-    
-      //Botón de actualizar imagen
-      var botonActualizar = document.createElement("div");
-      botonActualizar.classList.add("actualizar-imagen");
-      botonActualizar.textContent = "Actualizar";
-      botonActualizar.onclick = function() {
-        var input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
-        input.onchange = function(event) {
-          var file = event.target.files[0];
-          var reader = new FileReader();
-          reader.onload = function() {
-            nuevaImagen.src = reader.result;
+      function agregarImagen() {
+        //nuevo contenedor de imagen
+        var contenedorImagenes = document.getElementById("contenedor-imagenes");
+        var nuevoContenedor = document.createElement("div");
+        nuevoContenedor.classList.add("imagen-container");
+      
+        //imagen dentro del contenedor
+        var nuevaImagen = document.createElement("img");
+        nuevaImagen.src = "ruta-a-tu-imagen.jpg"; // Cambia "ruta-a-tu-imagen.jpg" por la ruta de tu imagen
+        nuevaImagen.classList.add("imagen");
+      
+        //botón de actualizar imagen
+        var botonActualizar = document.createElement("div");
+        botonActualizar.classList.add("actualizar-imagen");
+        botonActualizar.textContent = "Actualizar";
+        botonActualizar.onclick = function() {
+          var input = document.createElement('input');
+          input.type = 'file';
+          input.accept = 'image/*';
+          input.onchange = function(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function() {
+              nuevaImagen.src = reader.result;
+            };
+            reader.readAsDataURL(file);
           };
-          reader.readAsDataURL(file);
+          input.click();
         };
-        input.click();
-      };
-    
-      //Botón de eliminar contenedor
-      var botonEliminar = document.createElement("div");
-      botonEliminar.classList.add("eliminar-contenedor");
-      botonEliminar.textContent = "Eliminar";
-      botonEliminar.onclick = function() {
-        contenedorImagenes.removeChild(nuevoContenedor);
-      };
-    
-      //Controlador de redimensionamiento
-      var resizeHandle = document.createElement("div");
-      resizeHandle.classList.add("resize-handle");
-    
-      // Agregamos la imagen, el botón de actualizar, el botón de eliminar y el controlador al contenedor
-      nuevoContenedor.appendChild(nuevaImagen);
-      nuevoContenedor.appendChild(botonActualizar);
-      nuevoContenedor.appendChild(botonEliminar);
-      nuevoContenedor.appendChild(resizeHandle);
-    
-      //Nuevo contenedor al contenedor principal de imágenes
-      contenedorImagenes.appendChild(nuevoContenedor);
-    
-      //contenedor redimensionable
-      makeResizable(nuevoContenedor);
-    
-      //Contenedor sea arrastrable
-      makeDraggable(nuevoContenedor);
-    }
-    
-    function makeResizable(container) {
-      let startX, startY, startWidth, startHeight;
-      let isResizing = false; // Variable para rastrear si se está redimensionando
-    
-      const resizeHandle = container.querySelector('.resize-handle');
-    
-      resizeHandle.addEventListener('mousedown', startResize);
-    
-      function startResize(event) {
-        startX = event.clientX;
-        startY = event.clientY;
-        startWidth = parseInt(document.defaultView.getComputedStyle(container).width, 10);
-        startHeight = parseInt(document.defaultView.getComputedStyle(container).height, 10);
-    
-        isResizing = true; // Indicar que se está redimensionando
-        document.addEventListener('mousemove', resize);
-        document.addEventListener('mouseup', stopResize);
+      
+        //botón de eliminar contenedor
+        var botonEliminar = document.createElement("div");
+        botonEliminar.classList.add("eliminar-contenedor");
+        botonEliminar.textContent = "Eliminar";
+        botonEliminar.onclick = function() {
+          contenedorImagenes.removeChild(nuevoContenedor);
+        };
+      
+        //controlador de redimensionamiento
+        var resizeHandle = document.createElement("div");
+        resizeHandle.classList.add("resize-handle");
+      
+        // Agregamos la imagen, el botón de actualizar, el botón de eliminar y el controlador al contenedor
+        nuevoContenedor.appendChild(nuevaImagen);
+        nuevoContenedor.appendChild(botonActualizar);
+        nuevoContenedor.appendChild(botonEliminar);
+        nuevoContenedor.appendChild(resizeHandle);
+      
+        //Nuevo contenedor al contenedor principal de imágenes
+        contenedorImagenes.appendChild(nuevoContenedor);
+      
+        //contenedor sea redimensionable
+        makeResizable(nuevoContenedor);
+      
+        //Contenedor sea arrastrable
+        makeDraggable(nuevoContenedor);
       }
-    
-      function resize(event) {
-        if (isResizing) {
-          const width = startWidth + event.clientX - startX;
-          const height = startHeight + event.clientY - startY;
-          container.style.width = width + 'px';
-          container.style.height = height + 'px';
+      
+      function makeResizable(container) {
+        let startX, startY, startWidth, startHeight;
+        let isResizing = false; // Variable para rastrear si se está redimensionando
+      
+        const resizeHandle = container.querySelector('.resize-handle');
+      
+        resizeHandle.addEventListener('mousedown', startResize);
+      
+        function startResize(event) {
+          startX = event.clientX;
+          startY = event.clientY;
+          startWidth = parseInt(document.defaultView.getComputedStyle(container).width, 10);
+          startHeight = parseInt(document.defaultView.getComputedStyle(container).height, 10);
+      
+          isResizing = true; // Indicar que se está redimensionando
+          document.addEventListener('mousemove', resize);
+          document.addEventListener('mouseup', stopResize);
+        }
+      
+        function resize(event) {
+          if (isResizing) {
+            const width = startWidth + event.clientX - startX;
+            const height = startHeight + event.clientY - startY;
+            container.style.width = width + 'px';
+            container.style.height = height + 'px';
+          }
+        }
+      
+        function stopResize() {
+          isResizing = false; // Indicar que se ha detenido la redimensionamiento
+          document.removeEventListener('mousemove', resize);
+          document.removeEventListener('mouseup', stopResize);
+        }
+      
+        container.addEventListener('click', deleteImage);
+      
+        function deleteImage(event) {
+          const x = event.clientX - container.getBoundingClientRect().left;
+          const y = event.clientY - container.getBoundingClientRect().top;
+          
+          if (x <= 10 && y <= 10) {
+            container.remove();
+          }
         }
       }
-    
-      function stopResize() {
-        isResizing = false; // Indicar que se ha detenido la redimensionamiento
-        document.removeEventListener('mousemove', resize);
-        document.removeEventListener('mouseup', stopResize);
+      
+      function makeDraggable(container) {
+        container.style.position = 'absolute'; // Cambiado a posición absoluta
+      
+        let offsetX, offsetY;
+        let isDragging = false; // Variable para rastrear si se está arrastrando
+      
+        container.addEventListener('mousedown', startDragging);
+      
+        function startDragging(event) {
+          offsetX = event.clientX - container.getBoundingClientRect().left;
+          offsetY = event.clientY - container.getBoundingClientRect().top;
+      
+         
+          if (!container.querySelector('.resize-handle').matches(':hover')) {
+            // Comprobar si el mouse no está sobre el botón de redimensionamiento
+            isDragging = true; // Indicar que se está arrastrando solo si no se está redimensionando
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDragging);
+          }
+        }
+      
+        function drag(event) {
+          if (isDragging) {
+            const newPosX = event.clientX - offsetX;
+            const newPosY = event.clientY - offsetY;
+      
+            // Verificar si la nueva posición del contenedor se superpone con otros contenedores existentes
+            const draggedRect = {
+              left: newPosX,
+              top: newPosY,
+              right: newPosX + container.offsetWidth,
+              bottom: newPosY + container.offsetHeight
+            };
+      
+            let canMove = true;
+      
+            // Iterar sobre todos los contenedores existentes
+            document.querySelectorAll('.imagen-container').forEach(function(existingContainer) {
+              if (existingContainer !== container) { // Excluir el contenedor que se está arrastrando
+                const existingRect = existingContainer.getBoundingClientRect();
+      
+                // Verificar si hay superposición
+                if (!(draggedRect.right < existingRect.left || 
+                    draggedRect.left > existingRect.right || 
+                    draggedRect.bottom < existingRect.top || 
+                    draggedRect.top > existingRect.bottom)) {
+                  // Se superpone con otro contenedor, no puede moverse
+                  canMove = false;
+                }
+              }
+            });
+      
+            // Si no se superpone con otros contenedores, mover
+            if (canMove) {
+              container.style.left = newPosX + 'px';
+              container.style.top = newPosY + 'px';
+            }
+          }
+        }
+      
+        function stopDragging() {
+          isDragging = false;
+          document.removeEventListener('mousemove', drag);
+          document.removeEventListener('mouseup', stopDragging);
+        }
       }
-    
-      container.addEventListener('click', deleteImage);
-    
-      function deleteImage(event) {
-        const x = event.clientX - container.getBoundingClientRect().left;
-        const y = event.clientY - container.getBoundingClientRect().top;
+      
+      
+      </script>
         
-        if (x <= 10 && y <= 10) {
-          container.remove();
-        }
-      }
-    }
-    
-    function makeDraggable(container) {
-      container.style.position = 'absolute'; // Cambiado a posición absoluta
-    
-      let offsetX, offsetY;
-      let isDragging = false; // Variable para rastrear si se está arrastrando
-    
-      container.addEventListener('mousedown', startDragging);
-    
-      function startDragging(event) {
-        offsetX = event.clientX - container.getBoundingClientRect().left;
-        offsetY = event.clientY - container.getBoundingClientRect().top;
-    
-       
-        if (!container.querySelector('.resize-handle').matches(':hover')) {
-          // Comprobar si el mouse no está sobre el botón de redimensionamiento
-          isDragging = true; // Indicar que se está arrastrando solo si no se está redimensionando
-          document.addEventListener('mousemove', drag);
-          document.addEventListener('mouseup', stopDragging);
-        }
-      }
-    
-      function drag(event) {
-        if (isDragging) {
-          const newPosX = event.clientX - offsetX;
-          const newPosY = event.clientY - offsetY;
-    
-          container.style.left = newPosX + 'px';
-          container.style.top = newPosY + 'px';
-        }
-      }
-    
-      function stopDragging() {
-        isDragging = false;
-        document.removeEventListener('mousemove', drag);
-        document.removeEventListener('mouseup', stopDragging);
-      }
-    }
-    </script>
-    
 
 
 </body>
