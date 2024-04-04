@@ -134,6 +134,13 @@ function agregarTexto(event) {
   }
 }
 
+function cambiarSombreado(event) {
+  var sombra = prompt("Ingresa el valor de la sombra (ej. '2px 2px 4px rgba(0,0,0,0.5)'):");
+  if (sombra !== null && sombra !== "") {
+    event.target.style.textShadow = sombra;
+  }
+}
+
 document.addEventListener("dragover", function(event) {
   event.preventDefault();
 });
@@ -185,6 +192,21 @@ document.addEventListener("click", function(event) {
       this.remove(); // Elimina el menú desplegable después de seleccionar una opción
     });
 
+    // Crear el menú desplegable para cambiar el sombreado del texto
+    var sombreadoMenu = document.createElement("select");
+    var opcionesSombreado = ["2px 2px 4px rgba(0,0,0,0.5)", "4px 4px 6px rgba(0,0,0,0.5)", "6px 6px 8px rgba(0,0,0,0.5)"];
+
+    for (var k = 0; k < opcionesSombreado.length; k++) {
+      var sombreadoOption = document.createElement("option");
+      sombreadoOption.text = opcionesSombreado[k];
+      sombreadoMenu.add(sombreadoOption);
+    }
+
+    sombreadoMenu.addEventListener("change", function() {
+      event.target.style.textShadow = this.value;
+      this.remove(); // Elimina el menú desplegable después de seleccionar una opción
+    });
+
     // Crear la opción para eliminar el texto
     var eliminarTextoOpcion = document.createElement("button");
     eliminarTextoOpcion.textContent = "Eliminar texto";
@@ -197,8 +219,10 @@ document.addEventListener("click", function(event) {
     // Agregar las opciones al texto seleccionado
     event.target.appendChild(tipoLetraMenu);
     event.target.appendChild(colorTextoMenu);
+    event.target.appendChild(sombreadoMenu);
     event.target.appendChild(eliminarTextoOpcion);
     tipoLetraMenu.focus(); // Enfocar el menú desplegable para que el usuario pueda hacer clic en una opción sin necesidad de hacer clic nuevamente en el texto
   }
 });
+
  
